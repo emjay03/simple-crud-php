@@ -1,0 +1,199 @@
+<html>   
+   <head>
+      <title>Form Validation</title> 
+<Style>
+  *{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  outline:none;
+  
+  }
+  
+  body{
+  font-family:george,sans-serif;
+  background-color:pink;
+  display:flex;
+  justify-content:center;;
+  align-item:Center;
+  height:100%;
+  }
+  form{
+  width:450px;
+  background:#fff;
+  box-shadow:0 5px 21px #d4d4d4;
+  padding:40px;
+  border-radius:8px;
+  text-align:Center;
+  }
+  label h4{
+  
+  position:relative;
+  display:block;
+  margin-bottom:2px;
+  font-family:helvetica;
+  font-family:georgia,serif;
+  }
+  
+  input{
+  width:390px;
+  height:50px;
+  padding:0 20px;
+  font-size:18px;
+  
+  font-family:georgia,serif;
+  text-align:center;
+  border:none;
+  border-bottom:2px solid black;
+  
+
+  
+  }
+  button{
+  display:inline-block;
+  width:180px;
+  height:50px;
+  line-height:50px;
+  box-shadow:0 10px 25px blue;
+  border-radius:30px;
+  margin-top:10px;
+  cursor:pointer;
+  
+  }
+  h5{
+  text-align:left;
+  font-size:19px;
+  font-family:goergia,serif;
+  padding:10px 10px 10px 0px;
+  
+  
+  }
+  .insert{
+  border:1px solid black;
+  width:157px;
+  margin-top:10px;
+  background:white;
+  cursor:pointer;
+  }
+  .viewall {
+  border:1px solid black;
+  padding-left:50px;
+  padding-right:50px;
+  padding-top:12px;
+ padding-bottom:12px;
+  font-size:20px;
+  font-family:georgia,sans-serif;
+  
+  }
+  a{
+  text-decoration:none;
+  color:black;
+  }
+</style>  
+      
+   </head>
+   
+   <body>
+   
+      <form action = "r.php" method="post"name = "myForm" onsubmit = "return(validate());">
+	<label><h5>Name of Supplier</h5>
+ <label>Search</label>
+<input type="text" name="search" value="">
+
+
+
+</label>	
+	  <h5>New Customer</h5>
+     <label><h4>Name</h4>
+  <input type="text" name="name">
+  </label>
+  
+  <label>
+      <h4>Agent Name</h4>
+	  <input type="text" name="agentname">
+	  </label>
+	<label>
+	   <h4>Product ID</h4>
+	   <input type="number" name="productid">
+	  </label>
+	  
+	  <label>
+	  <h4>Address</h4>
+	  <input type="text" name="address">
+	  </label>
+	  <BR>
+	   <div class="btn">
+	   
+        <input type="submit" class="insert"value="Insert">	 
+	<a class="viewall"href="viewall.php">View all</a>
+	
+      </form>
+<script>
+  
+      function validate() {
+      
+         if( document.myForm.name.value == "" ) {
+            alert( "Please provide your name!" );
+            document.myForm.name.focus() ;
+            return false;
+         }
+         if( document.myForm.agentname.value == "" ) {
+            alert( "Please provide your Agent Name!" );
+            document.myForm.agentname.focus() ;
+            return false;
+         }
+		 if( document.myForm.productid.value == "" ) {
+            alert( "Please provide your Product ID!" );
+            document.myForm.productid.focus() ;
+            return false;
+         }
+		 if( document.myForm.address.value == "" ) {
+            alert( "Please provide your Address" );
+            document.myForm.address.focus() ;
+            return false;
+         }
+         
+     
+      }
+ 
+</script>      
+   </body>
+</html>
+<?php
+
+$con = new PDO("mysql:host=localhost;dbname=codeflix",'root','');
+
+if (isset($_POST["submit"])) {
+	$str = $_POST["search"];
+	$sth = $con->prepare("SELECT * FROM `search` WHERE Name = '$str'");
+
+	$sth->setFetchMode(PDO:: FETCH_OBJ);
+	$sth -> execute();
+
+	if($row = $sth->fetch())
+	{
+		?>
+		<br><br><br>
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><?php echo $row->Name; ?></td>
+				<td><?php echo $row->Address;?></td>
+			</tr>
+
+		</table>
+<?php 
+	}
+		
+		
+		else{
+			echo "Name Does not exist";
+		}
+
+
+}
+
+?>

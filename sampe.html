@@ -1,0 +1,63 @@
+<html>   
+   <head>
+      <title>Form Validation</title>      
+      <script type = "text/javascript">
+         <!--
+            // Form validation code will come here.
+         //-->
+      </script>      
+   </head>
+   
+   <body>
+      <form action = "index.php" method="post"name = "myForm" onsubmit = "return(validate());">
+     <label><h4>Name</h4>
+  <input type="text" name="name">
+  </label>
+  
+  <label>
+      <h4>Agent Name</h4>
+	  <input type="text" name="aname">
+	  </label>
+	<label>
+	   <h4>Product ID</h4>
+	   <input type="number" name="pid">
+	  </label>
+	  
+	  <label>
+	  <h4>Address</h4>
+	  <input type="text" name="add">
+	  </label>
+	  <button class="button" type="submit">Sign in </button>
+      </form>
+<script type = "text/javascript">
+   <!--
+      // Form validation code will come here.
+      function validate() {
+      
+         if( document.myForm.name.value == "" ) {
+            alert( "Please provide your name!" );
+            document.myForm.name.focus() ;
+            return false;
+         }
+         if( document.myForm.aname.value == "" ) {
+            alert( "Please provide your Email!" );
+            document.myForm.aname.focus() ;
+            return false;
+         }
+		 if( document.myForm.pid.value == "" ) {
+            alert( "Please provide your Email!" );
+            document.myForm.pid.focus() ;
+            return false;
+         }
+		 if( document.myForm.add.value == "" ) {
+            alert( "Please provide your Email!" );
+            document.myForm.add.focus() ;
+            return false;
+         }
+         
+     
+      }
+   //-->
+</script>      
+   </body>
+</html>
